@@ -1,0 +1,3 @@
+[submodule "workload/llm/AQLM"]
+	path = workload/llm/AQLM
+	url = https://github.com/Vahe1994/AQLM.git
