@@ -10,3 +10,6 @@
 [submodule "workload/llm/VPTQ"]
 	path = workload/llm/VPTQ
 	url = https://github.com/microsoft/VPTQ.git
+[submodule "workload/llm/T-MAC"]
+	path = workload/llm/T-MAC
+	url = https://github.com/microsoft/T-MAC.git
