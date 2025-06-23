@@ -13,3 +13,6 @@
 [submodule "workload/llm/T-MAC"]
 	path = workload/llm/T-MAC
 	url = https://github.com/microsoft/T-MAC.git
+[submodule "ara_lut"]
+	path = ara_lut
+	url = https://github.com/wh-xu/ara_lut.git
