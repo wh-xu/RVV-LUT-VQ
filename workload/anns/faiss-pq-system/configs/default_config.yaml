@@ -1,0 +1,45 @@
+# FAISS PQ 系统默认配置
+
+# 算法配置
+algorithm:
+  default: "pq"  # pq, ivf-pq
+  supported: ["pq", "ivf-pq"]
+
+# 距离度量
+distance_metric:
+  default: "l2"  # l2, angular
+  supported: ["l2", "angular"]
+
+# PQ参数
+pq_params:
+  k_values: [8, 16, 64, 128, 256]  # 聚类中心数量
+  m_values: [8]  # 子向量数量
+  n_clusters: 256  # IVF聚类数量
+  
+# 搜索参数
+search_params:
+  topk: 100  # 返回的近邻数量
+  rerank: false  # 是否重排序
+  nprobe: 1  # IVF搜索时的探测数量
+
+# 评估指标
+evaluation:
+  recall_k: [1, 10, 100]  # recall@k的k值
+  
+# 系统设置
+system:
+  verbose: true  # 详细日志输出
+  num_threads: -1  # 线程数，-1表示使用所有可用线程
+  random_seed: 42  # 随机种子
+  
+# 文件路径
+paths:
+  datasets: "./Dataset"
+  models: "./models"
+  results: "./results"
+  temp: "./temp"
+
+# 内存设置  
+memory:
+  batch_size: 10000  # 批处理大小
+  max_memory_gb: 8  # 最大内存使用量（GB） 
