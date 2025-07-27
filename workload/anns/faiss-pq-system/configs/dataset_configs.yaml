@@ -1,0 +1,186 @@
+# Dataset Configuration File
+
+datasets:
+  sift1m:
+    name: "SIFT1M"
+    description: "SIFT 1M vectors dataset"
+    dimension: 128
+    num_base: 1000000
+    num_query: 10000
+    num_learn: 200000
+    data_type: "float32"
+    
+    # File download information - HDF5 format
+    files:
+      base_vectors:
+        filename: "sift-128-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/sift-128-euclidean.hdf5"
+        description: "Base vectors in HDF5 format"
+        hdf5_key: "train"
+      query_vectors:
+        filename: "sift-128-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/sift-128-euclidean.hdf5"
+        description: "Query vectors in HDF5 format"
+        hdf5_key: "test"
+      learn_vectors:
+        filename: "sift-128-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/sift-128-euclidean.hdf5"
+        description: "Learning vectors (subset of train data)"
+        hdf5_key: "train"
+      groundtruth:
+        filename: "sift-128-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/sift-128-euclidean.hdf5"
+        description: "Ground truth neighbors in HDF5"
+        hdf5_key: "neighbors"
+    
+    # Dataset-specific parameters
+    params:
+      distance_metric: "l2"  # Euclidean distance
+      recommended_k: [8, 16, 64, 128, 256]
+      recommended_m: [8, 16, 32]
+      recommended_clusters: [256, 1024, 4096]
+      format: "hdf5"
+      # FastScan optimized parameters
+      fastscan_recommended_k: [16]  # 4-bit optimal
+      fastscan_recommended_m: [8, 16, 32]
+      
+    # Local path
+    local_path: "./Dataset/sift1m"
+
+  glove:
+    name: "GloVe-100-angular"
+    description: "GloVe word embeddings with 100 dimensions"
+    dimension: 100
+    num_base: 1183514
+    num_query: 10000
+    num_learn: 200000
+    data_type: "float32"
+    
+    # File information - HDF5 format
+    files:
+      base_vectors:
+        filename: "glove-100-angular.hdf5"
+        url: "http://ann-benchmarks.com/glove-100-angular.hdf5"
+        description: "Base vectors from train data in HDF5"
+        hdf5_key: "train"
+      query_vectors:
+        filename: "glove-100-angular.hdf5"
+        url: "http://ann-benchmarks.com/glove-100-angular.hdf5"
+        description: "Query vectors from test data in HDF5"
+        hdf5_key: "test"
+      learn_vectors:
+        filename: "glove-100-angular.hdf5"
+        url: "http://ann-benchmarks.com/glove-100-angular.hdf5"
+        description: "Learning vectors (subset of train data)"
+        hdf5_key: "train"
+      groundtruth:
+        filename: "glove-100-angular.hdf5"
+        url: "http://ann-benchmarks.com/glove-100-angular.hdf5"
+        description: "Ground truth neighbors in HDF5"
+        hdf5_key: "neighbors"
+    
+    # Dataset-specific parameters
+    params:
+      distance_metric: "ip"  # Inner product distance (angular distance)
+      recommended_k: [8, 16, 64, 128, 256]
+      recommended_m: [4, 5, 10, 20, 25]  # M values suitable for 100 dimensions
+      recommended_clusters: [256, 1024, 4096]
+      format: "hdf5"
+      # FastScan optimized parameters
+      fastscan_recommended_k: [16]  # 4-bit optimal
+      fastscan_recommended_m: [4, 5, 10, 20]
+      
+    # Local path
+    local_path: "./Dataset/glove"
+
+  gist1m:
+    name: "GIST1M"
+    description: "GIST descriptors for 1M images"
+    dimension: 960
+    num_base: 1000000
+    num_query: 1000
+    num_learn: 500000
+    data_type: "float32"
+    
+    # File download information - HDF5 format
+    files:
+      base_vectors:
+        filename: "gist-960-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/gist-960-euclidean.hdf5"
+        description: "Base vectors in HDF5 format"
+        hdf5_key: "train"
+      query_vectors:
+        filename: "gist-960-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/gist-960-euclidean.hdf5"
+        description: "Query vectors in HDF5 format"
+        hdf5_key: "test"
+      learn_vectors:
+        filename: "gist-960-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/gist-960-euclidean.hdf5"
+        description: "Learning vectors (subset of train data)"
+        hdf5_key: "train"
+      groundtruth:
+        filename: "gist-960-euclidean.hdf5"
+        url: "http://ann-benchmarks.com/gist-960-euclidean.hdf5"
+        description: "Ground truth neighbors in HDF5"
+        hdf5_key: "neighbors"
+    
+    # Dataset-specific parameters
+    params:
+      distance_metric: "l2"  # Euclidean distance
+      recommended_k: [8, 16, 64, 128, 256]
+      recommended_m: [8, 16, 24, 30, 32]  # M values suitable for 960 dimensions
+      recommended_clusters: [256, 1024, 4096]
+      format: "hdf5"
+      # FastScan optimized parameters
+      fastscan_recommended_k: [16]  # 4-bit optimal
+      fastscan_recommended_m: [24, 30, 32]
+      
+    # Local path
+    local_path: "./Dataset/gist1m"
+
+  deep10m:
+    name: "Deep10M"
+    description: "Deep image features dataset"
+    dimension: 96
+    num_base: 10000000
+    num_query: 10000
+    num_learn: 500000
+    data_type: "float32"
+    
+    # File download information - HDF5 format
+    files:
+      base_vectors:
+        filename: "deep-image-96-angular.hdf5"
+        url: "http://ann-benchmarks.com/deep-image-96-angular.hdf5"
+        description: "Base vectors in HDF5 format"
+        hdf5_key: "train"
+      query_vectors:
+        filename: "deep-image-96-angular.hdf5"
+        url: "http://ann-benchmarks.com/deep-image-96-angular.hdf5"
+        description: "Query vectors in HDF5 format"
+        hdf5_key: "test"
+      learn_vectors:
+        filename: "deep-image-96-angular.hdf5"
+        url: "http://ann-benchmarks.com/deep-image-96-angular.hdf5"
+        description: "Learning vectors (subset of train data)"
+        hdf5_key: "train"
+      groundtruth:
+        filename: "deep-image-96-angular.hdf5"
+        url: "http://ann-benchmarks.com/deep-image-96-angular.hdf5"
+        description: "Ground truth neighbors in HDF5"
+        hdf5_key: "neighbors"
+    
+    # Dataset-specific parameters
+    params:
+      distance_metric: "ip"  # Inner product distance (angular distance)
+      recommended_k: [8, 16, 64, 128, 256]
+      recommended_m: [8, 12, 16, 24, 32]  # M values suitable for 96 dimensions
+      recommended_clusters: [256, 1024, 4096]
+      format: "hdf5"
+      # FastScan optimized parameters
+      fastscan_recommended_k: [16]  # 4-bit optimal
+      fastscan_recommended_m: [8, 12, 16, 24]
+      
+    # Local path
+    local_path: "./Dataset/deep10m"

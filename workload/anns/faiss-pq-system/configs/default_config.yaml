@@ -1,0 +1,68 @@
+# FAISS PQ System Default Configuration
+
+# Algorithm configuration
+algorithm:
+  default: "pq"  # pq, ivf-pq, 4bitfastscan, rq, rq_fastscan
+  supported: ["pq", "ivf-pq", "4bitfastscan", "rq", "rq_fastscan"]
+
+# Distance metric
+distance_metric:
+  default: "l2"  # l2, angular
+  supported: ["l2", "angular"]
+
+# PQ parameters
+pq_params:
+  k_values: [8, 16, 64, 128, 256]  # Number of cluster centers
+  m_values: [8]  # Number of subvectors
+  n_clusters: 256  # Number of IVF clusters
+  # FastScan specific parameters
+  fastscan_4bit: true  # Use 4-bit quantization for FastScan
+  
+# RQ parameters
+rq_params:
+  k_values: [8, 16, 32, 64, 128, 256]  # K values for RQ (must be powers of 2)
+  m_values: [4, 8, 16]  # Number of quantization stages
+  
+  # Training optimization parameters
+  max_train_samples: 500000  # Maximum training samples for memory optimization (increased from 100K)
+  min_required_samples_multiplier: 10  # Minimum samples = k * m * this_value
+  memory_usage_percentage: 0.3  # Use 30% of available system memory for training
+  fallback_memory_mb: 1024  # Fallback memory limit if system detection fails
+  
+  # RQ algorithm specific parameters
+  adaptive_beam_size: true  # Use adaptive beam size based on K value
+  min_beam_size: 16  # Minimum beam size for standard RQ
+  max_beam_size: 64  # Maximum beam size for standard RQ
+  
+  # RQ FastScan specific parameters
+  fastscan_optimal_k_values: [8, 16, 32, 64]  # Optimal K values for FastScan (3-6 bits)
+  fastscan_beam_size_divisor: 8  # Beam size = k // this_value for FastScan
+  fastscan_max_beam_size: 32  # Maximum beam size for FastScan
+
+# Search parameters
+search_params:
+  topk: 100  # Number of nearest neighbors to return
+  rerank: false  # Whether to rerank results
+  nprobe: 1  # Number of probes for IVF search
+
+# Evaluation metrics
+evaluation:
+  recall_k: [1, 10, 100]  # K values for recall@k
+  
+# System settings
+system:
+  verbose: true  # Verbose logging output
+  num_threads: -1  # Number of threads, -1 means use all available threads
+  random_seed: 42  # Random seed
+  
+# File paths
+paths:
+  datasets: "./Dataset"
+  models: "./models"
+  results: "./results"
+  temp: "./temp"
+
+# Memory settings  
+memory:
+  batch_size: 10000  # Batch processing size
+  max_memory_gb: 8  # Maximum memory usage (GB) 
