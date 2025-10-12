@@ -16,3 +16,6 @@
 [submodule "ara_lut"]
 	path = ara_lut
 	url = https://github.com/wh-xu/ara_lut.git
+[submodule "benchmark/llm/T-MAC"]
+	path = benchmark/llm/T-MAC
+	url = https://github.com/microsoft/T-MAC.git
