@@ -19,3 +19,6 @@
 [submodule "benchmark/llm/T-MAC"]
 	path = benchmark/llm/T-MAC
 	url = https://github.com/microsoft/T-MAC.git
+[submodule "benchmark/AQLM"]
+	path = benchmark/AQLM
+	url = https://github.com/Vahe1994/AQLM.git
