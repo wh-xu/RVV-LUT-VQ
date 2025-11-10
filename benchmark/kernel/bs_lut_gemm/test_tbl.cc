@@ -3,7 +3,8 @@
 #include <random>
 
 extern "C" {
-tbl_g4_int8_float_update(true, 16, 2, 16, false)
+// bool has_scale, int K, int Bits, int ActK = 16, bool FastAggregation = false, bool ZeroPoint = false, bool OneScale = false
+    tbl_g4_int8_float_update(true, 16, 2, 16, false, false, false)
 }
 
 int main() {
@@ -49,12 +50,13 @@ int main() {
     }
     printf("\n");
 
-    tbl_g4_int8_float_update_strue_k16_b2_ak16_fafalse(256, cbits, lut[0],  A,        scales, lut_scales    , lut_biases    );
+    tbl_g4_int8_float_update_strue_k16_b2_ak16_fafalse_zfalse_osfalse(256, cbits, lut+0, A, scales, lut_scales, lut_biases);
     for (int i = 0; i < 256; i++) {
         printf("%f ", cbits[i]);
     }
     printf("\n");
-    tbl_g4_int8_float_update_strue_k16_b2_ak16_fafalse(256, cbits, lut[16], A + 2048, scales, lut_scales + 1, lut_biases + 1);
+
+    tbl_g4_int8_float_update_strue_k16_b2_ak16_fafalse_zfalse_osfalse(256, cbits, lut[16], A+2048, scales, lut_scales+1, lut_biases+1);
     for (int i = 0; i < 256; i++) {
         printf("%f ", cbits[i]);
     }

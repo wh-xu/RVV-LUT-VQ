@@ -11,13 +11,8 @@ echo "CPU model: $(grep 'model name' /proc/cpuinfo | head -1 | cut -d: -f2 | xar
 echo "AVX256 support: $(grep -o 'avx2' /proc/cpuinfo | head -1 || echo 'Not available')"
 echo "AVX512 support: $(grep -o 'avx512' /proc/cpuinfo | head -1 || echo 'Not available')"
 # Get CPU maximum frequency (in MHz or GHz)
-if [ -f /proc/cpuinfo ]; then
-    max_freq=$(awk -F': ' '/cpu MHz/ {if($2>max) max=$2} END{if(max) print max " MHz"; else print "N/A"}' /proc/cpuinfo)
-    echo "Max CPU frequency: $max_freq"
-else
-    echo "Max CPU frequency: N/A"
-fi
-echo ""
+max_freq=$(lscpu | grep "CPU max MHz" | awk -F: '{print $2}' | xargs)
+echo "Max CPU frequency: $max_freq"
 
 # Compile the program
 mkdir -p build

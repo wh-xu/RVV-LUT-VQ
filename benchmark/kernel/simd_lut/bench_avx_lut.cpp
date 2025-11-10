@@ -53,6 +53,7 @@ inline void lookup_and_add_simd(
             // Perform SIMD LUT and addition
             // From Quicker ADC
             #ifdef _AVX512_EPI8_
+            
             // Lookup add (low)
             __m512i comps = _mm512_loadu_si512((__m512i*)(idx+j*CB_SIZE));
             __m512i masked = _mm512_and_si512(comps, low_mask_avx);
@@ -62,10 +63,11 @@ inline void lookup_and_add_simd(
             __m512i compsb = _mm512_srli_epi64(comps, 4);
             __m512i maskedb = _mm512_and_si512(compsb, low_mask_avx);
             __m512i partialb = _mm512_shuffle_epi8(lut_vec, maskedb);
-            __m512i partial_sum = _mm512_adds_epu8(partiala,partialb);
-            psum = _mm512_adds_epu8(psum,partial_sum);
+            __m512i partial_sum = _mm512_adds_epu8(partiala, partialb);
+            psum = _mm512_adds_epu8(psum, partial_sum);
 
             #elif defined(_AVX512_EPI16_)
+
             __m512i partiala, partialb, partialc;
             __m512i comps_012 = _mm512_loadu_si512((__m512i*)(idx+j*CB_SIZE));
             partiala = _mm512_permutex2var_epi16(lut_vec, comps_012, lut_vec);
@@ -80,6 +82,7 @@ inline void lookup_and_add_simd(
             psum = _mm512_adds_epi16(psum, partialc);
 
             #elif defined(_AVX256_EPI8_)
+
             // Lookup add (low)
             __m256i comps = _mm256_loadu_si256((__m256i*)(idx+j*CB_SIZE));
             __m256i masked = _mm256_and_si256(comps, low_mask_avx);
@@ -90,7 +93,7 @@ inline void lookup_and_add_simd(
             __m256i maskedb = _mm256_and_si256(compsb, low_mask_avx);
             __m256i partialb = _mm256_shuffle_epi8(lut_vec, maskedb);
             __m256i partial_sum = _mm256_adds_epi8(partiala, partialb);
-            psum = _mm256_adds_epi8(psum,partial_sum);
+            psum = _mm256_adds_epi8(psum, partial_sum);
 
             #elif defined(_SCALAR_)
 
@@ -149,7 +152,7 @@ int main() {
     std::uniform_int_distribution<uint16_t> dist(0, CB_SIZE-1); // 4-bit indices (0-15)
     
     // Create random indices
-    const uint64_t n_runs = 10000;
+    const uint64_t n_runs = 100000;
     const uint64_t n_lut_per_run = 10000;
     #if defined(_SCALAR_) || defined(_AVX512_EPI8_)
     alignas(64) uint8_t idx[CB_SIZE*n_lut_per_run]; 
@@ -184,7 +187,6 @@ int main() {
     
     std::cout << "Runtime measurement (Single-Core Execution):" << std::endl;
     std::cout << "Duration: " << duration.count()*1e-6 << " ms" << std::endl;
-    // std::cout << "Overall Throughput: " << throughput_overall << " GOPs/sec" << std::endl;
     std::cout << "LUT Throughput: " << throughput_lut << " GLUTs/sec" << std::endl;
     
     // Verify we're running on the correct core
